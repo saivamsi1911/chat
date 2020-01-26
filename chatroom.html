@@ -1,0 +1,30 @@
+<html>
+<head>
+  <title>chat box</title>
+  <script type="text/text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    var socket=to.connect('http://127.0.0.1:5000');
+
+    socket.on('connect',function(){
+      socket.send('user has connected');
+    });
+
+    socket.on('message',function(msg){
+      $("messages").append('<li>'+msg+'</li>');
+    });
+
+    $('#sendbutton').on('click',function(){
+      socket.send($('#myMessages').val());
+      $('#myMessages').val('');
+    });
+  });
+  </script>
+  <ul id="messages" ></ul>
+  <input type="text" id="myMessages">
+  <button id="sendbutton ">send</button>
+</body>
+</html>
