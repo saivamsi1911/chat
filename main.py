@@ -5,9 +5,14 @@
  app.config('SECRET KEY')='mysecret'
  socketio=SocketIO(app)
 
-@socketio.on('mesasge')
+@app.route("/")
+def home():
+    return render_template("chatroom.html")
+
+ 
+@socketio.on('message')
 def handleMessage(msg):
-    printf('Message: '+msg)
+    print('Message: '+msg)
     send(msg, broadcast=True)
 
 
