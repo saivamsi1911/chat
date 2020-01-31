@@ -1,0 +1,98 @@
+<html>
+<head>
+  <title>chat box</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<style>
+body{
+    font-family: 'Nunito';
+}
+
+h2{
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #575ed8;
+}
+
+input{
+    padding: 10px 20px;
+    box-sizing: border-box;
+   
+    border: 0;
+    display: block;
+    width: 100%;
+   text-align:center;
+    border-bottom: 1px solid #eee;
+    font-family: Nunito;
+    font-size: 16px;
+}
+
+button{
+    background: #575ed8;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+}
+ul{
+    color:#83ed7c;
+}
+.chat{
+    max-width: 600px;
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    border-radius: 2px;
+    height:70%;
+	
+}
+.c1{
+max-width:100px;
+float:left;
+}
+.c2{
+max-width:300px;
+float:left;
+}
+
+</style>
+</head>
+<body background>
+  <script type="text/javascript">
+  $(document).ready(function(){
+
+    var socket=io.connect('http://127.0.0.1:5000');
+
+    socket.on('connect',function(){
+      socket.send('user has connected');
+    });
+
+    socket.on('message',function(msg){
+      $("#messages").append('<li>'+msg+'</li>');
+    });
+
+    $('#sendbutton').on('click',function(){
+         	
+      socket.send($('#myMessage').val());
+      $('#myMessage').val('');
+      
+    });
+  });
+  </script>
+
+
+  
+ <input style="background:#E6EAEF" placeholder="enter name" type="text" id="name">	
+<div class="chat">
+	 
+ 
+
+<ul id="messages"></ul>
+</div>
+  <input style="background:#F6F8F9" placeholder="enter a me" type="text" id="myMessage">
+  <button id="sendbutton">send</button>
+
+</body>
+</html>
